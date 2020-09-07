@@ -5,3 +5,4 @@ Redoing the English version of this course in a comprehensive manner. Completed 
 ## Links to different parts
 
 - [Part 0](https://github.com/rescawen/Fall2020Fullstack/tree/master/Part0)  
+- [Part 1](https://github.com/rescawen/Fall2020Fullstack/tree/master/Part1)  
