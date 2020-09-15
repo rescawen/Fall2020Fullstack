@@ -7,10 +7,43 @@ const Button = ({ onClick, text }) => (
   </button>
 )
 
-const Statistic = ({ text, value }) => <div>{text} {value}</div> // statistic(S)! should be a bigger component
+const Statistic = ({ text, value }) => {
+  return (
+    <tr>
+      <td style={{ width: '75px' }}>{text}</td>
+      <td>{value}</td>
+    </tr>
+  )
+}
+
+const Statistics = ({ good, neutral, bad }) => {
+  const totalFeedback = () => good + neutral + bad
+  const countAverage = () => (good + bad * -1) / totalFeedback()
+  const countPositive = () => (good / totalFeedback()) * 100 + ' %'
+
+  if (totalFeedback() === 0) {
+    return (
+      <div>No feedback given</div>
+    )
+  }
+
+  return (
+    <div>
+      <table>
+        <tbody>
+          <Statistic text="good" value={good} />
+          <Statistic text="neutral" value={neutral} />
+          <Statistic text="bad" value={bad} />
+          <Statistic text="all" value={totalFeedback()} />
+          <Statistic text="average" value={countAverage()} />
+          <Statistic text="positive" value={countPositive()} />
+        </tbody>
+      </table>
+    </div>
+  )
+}
 
 const App = () => {
-  // save clicks of each button to own state
   const [good, setGood] = useState(0)
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
@@ -26,13 +59,11 @@ const App = () => {
       <Button onClick={handleNeutralClick} text='neutral' />
       <Button onClick={handleBadClick} text='bad' />
       <h1>statistics</h1>
-      <Statistic text="good" value={good} />
-      <Statistic text="neutral" value={neutral} />
-      <Statistic text="bad" value={bad} />
+      <Statistics good={good} neutral={neutral} bad={bad} />
     </div>
   )
 }
 
-ReactDOM.render(<App />, 
+ReactDOM.render(<App />,
   document.getElementById('root')
 )
