@@ -9,10 +9,11 @@ const Part = ({ part }) => {
 }
 
 const Course = ({ course }) => {
-  const totalExercises = course.parts.map(part => part.exercises).reduce((accumulator, currentValue) => {
-    return accumulator + currentValue
-  })
 
+  const exercises = course.parts.map(part => part.exercises)
+  const reducer = (accumulator, currentValue) => accumulator + currentValue;
+  const totalExercises = exercises.reduce(reducer)
+  
   return (
     <div>
       <h2>{course.name}</h2>
