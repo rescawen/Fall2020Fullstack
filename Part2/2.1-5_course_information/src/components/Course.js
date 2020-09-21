@@ -15,8 +15,11 @@ const Course = ({ course }) => {
     <Part key={part.id} part={part} />
   )
   const exercises = course.parts.map(part => part.exercises)
-  const reducer = (accumulator, currentValue) => accumulator + currentValue;
-  const totalExercises = <b>total of {exercises.reduce(reducer)} exercises</b> 
+  const sumReducer = (exerciseSum, currentExercise) => (
+    console.log(exerciseSum, currentExercise),
+    exerciseSum + currentExercise
+  )
+  const totalExercises = <b>total of {exercises.reduce(sumReducer)} exercises</b>
 
   return (
     <div>
