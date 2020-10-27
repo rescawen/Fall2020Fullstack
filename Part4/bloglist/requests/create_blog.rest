@@ -1,9 +1,10 @@
 POST http://localhost:3003/api/blogs
 Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IndlbmxlaSIsImlkIjoiNWY5N2U3MjcwOWU4ZTAxMjE0MjdlZjczIiwiaWF0IjoxNjAzNzk1MzEzfQ.V9Vw8AYy20vsP18HT_TU_TBC6JIfSwgqaAXi9QwrW5E
 
 {
-    "title": "app and utils separated",
+    "title": "token middleware working?",
     "author": "wenlei",
-    "url": "testtest",
-    "likes": 1
+    "url": "https://blogs.helsinki.fi/welcometouh/category/student-stories/",
+    "likes": 3
 }
