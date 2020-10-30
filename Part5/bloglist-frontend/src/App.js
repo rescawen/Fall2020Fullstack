@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import './App.css';
 import Blog from './components/Blog'
+import BlogForm from './components/BlogForm'
+import Togglable from './components/Togglable'
 import Notification from './components/Notification'
 import blogService from './services/blogs'
 import loginService from './services/login'
@@ -10,14 +12,13 @@ const App = () => {
   const [notificationMessage, setNotificationMessage] = useState(null)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const [blogTitle, setBlogTitle] = useState('')
-  const [blogAuthor, setBlogAuthor] = useState('')
-  const [blogURL, setBlogURL] = useState('')
   const [user, setUser] = useState(null)
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
-      setBlogs(blogs)
+      setBlogs(blogs.sort(
+        (b1, b2) => (b1.likes < b2.likes) ? 1 : (b1.likes > b2.likes) ? -1 : 0)
+      )
     )
   }, [])
 
@@ -65,22 +66,14 @@ const App = () => {
     window.localStorage.clear()
   }
 
-  const createNewBlog = async (event) => {
-    event.preventDefault()
-    const blog = {
-      title: blogTitle,
-      author: blogAuthor,
-      url: blogURL
-    }
+  const addBlog = async (blogObject) => {
     try {
-      await blogService.create(blog)
-      setNotificationMessage({ text: `${blog.title} by ${blog.author} added`, success: true })
+      const returnedBlog = await blogService.create(blogObject)
+      setBlogs(blogs.concat(returnedBlog))
+      setNotificationMessage({ text: `${blogObject.title} by ${blogObject.author} added`, success: true })
       setTimeout(() => {
         setNotificationMessage(null)
       }, 5000)
-      setBlogTitle('')
-      setBlogAuthor('')
-      setBlogURL('')
     } catch (exception) {
       setTimeout(() => {
         setNotificationMessage(null)
@@ -93,6 +86,44 @@ const App = () => {
       //   }, 5000)
     }
   }
+
+  const likeBlog = async (blogObject) => {
+    try {
+      const returnedBlog = await blogService.update(blogObject.id, blogObject)
+      const index = blogs.findIndex(b => b.id === blogObject.id)
+      blogs[index] = returnedBlog
+      setBlogs(blogs)
+      setNotificationMessage({ text: `you have liked ${blogObject.title}`, success: true })
+      setTimeout(() => {
+        setNotificationMessage(null)
+      }, 5000)
+    } catch (exception) {
+      setTimeout(() => {
+        setNotificationMessage(null)
+      }, 5000)
+    }
+  }
+
+  const deleteBlog = async (blogObject) => {
+    try {
+      await blogService.remove(blogObject.id)
+      setBlogs(blogs.filter(b => b.id !== blogObject.id))
+      setNotificationMessage({ text: `successfully deleted ${blogObject.title}`, success: true })
+      setTimeout(() => {
+        setNotificationMessage(null)
+      }, 5000)
+    } catch (exception) {
+      setTimeout(() => {
+        setNotificationMessage(null)
+      }, 5000)
+    }
+  }
+
+  const blogForm = () => (
+    <Togglable buttonLabel='new blog'>
+      <BlogForm createBlog={addBlog} />
+    </Togglable>
+  )
 
   if (user === null) {
     return (
@@ -130,41 +161,10 @@ const App = () => {
       <Notification message={notificationMessage} />
       <div>{user.name} logged in <button onClick={handleLogout}>logout</button></div>
       <br />
-
-      <h2>create new</h2>
-      <form onSubmit={createNewBlog}>
-        <div>
-          title:
-            <input
-            type="text"
-            value={blogTitle}
-            name="Title"
-            onChange={({ target }) => setBlogTitle(target.value)}
-          />
-        </div>
-        <div>
-          author:
-            <input
-            type="text"
-            value={blogAuthor}
-            name="Author"
-            onChange={({ target }) => setBlogAuthor(target.value)}
-          />
-        </div>
-        <div>
-          url:
-            <input
-            type="text"
-            value={blogURL}
-            name="URL"
-            onChange={({ target }) => setBlogURL(target.value)}
-          />
-        </div>
-        <button type="submit">create</button>
-      </form>
-
+      {blogForm()}
+      <br />
       {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} />
+        <Blog key={blog.id} blog={blog} likeBlog={likeBlog} deleteBlog={deleteBlog} />
       )}
     </div>
   )
