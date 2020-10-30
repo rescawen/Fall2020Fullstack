@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import './App.css';
+import './App.css'
 import Blog from './components/Blog'
 import BlogForm from './components/BlogForm'
 import Togglable from './components/Togglable'
@@ -50,7 +50,7 @@ const App = () => {
       setUsername('')
       setPassword('')
     } catch (exception) {
-      setNotificationMessage({ text: `Wrong username or password`, success: false })
+      setNotificationMessage({ text: 'Wrong username or password', success: false })
       setTimeout(() => {
         setNotificationMessage(null)
       }, 5000)
@@ -58,6 +58,7 @@ const App = () => {
   }
 
   const handleLogout = (event) => {
+    event.preventDefault()
     setNotificationMessage({ text: `${user.name} has successfully logged out`, success: true })
     setTimeout(() => {
       setNotificationMessage(null)
@@ -79,7 +80,7 @@ const App = () => {
         setNotificationMessage(null)
       }, 5000)
       // in case there is limitation for how blogs are added, use below for error
-      // (error) { 
+      // (error) {
       //   setNotificationMessage({ text: error.response.data.error, success: true })
       //   setTimeout(() => {
       //     setNotificationMessage(null)
@@ -121,7 +122,7 @@ const App = () => {
 
   const blogForm = () => (
     <Togglable buttonLabel='new blog'>
-      <BlogForm createBlog={addBlog} />
+      <BlogForm addBlog={addBlog} />
     </Togglable>
   )
 
