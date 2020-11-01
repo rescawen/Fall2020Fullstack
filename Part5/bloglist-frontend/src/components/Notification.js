@@ -6,23 +6,17 @@ const Notification = ({ message }) => {
     return null
   } else if (message.success) {
     return (
-      <div className="notification success">
+      <div className="notification success" data-cy="notificationSuccess">
         {message.text}
       </div>
     )
   } else if (!message.success) {
     return (
-      <div className="notification failure">
+      <div className="notification failure" data-cy="notificationFailure">
         {message.text}
       </div>
     )
   }
-
-  // return (
-  //   <div className="error">
-  //     {message}
-  //   </div>
-  // )
 }
 
 export default Notification
