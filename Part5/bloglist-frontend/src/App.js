@@ -121,7 +121,7 @@ const App = () => {
   }
 
   const blogForm = () => (
-    <Togglable buttonLabel='new blog'>
+    <Togglable buttonLabel='new blog' dataCy='new-blog'>
       <BlogForm addBlog={addBlog} />
     </Togglable>
   )

@@ -41,20 +41,20 @@ const Blog = ({ blog, likeBlog, deleteBlog }) => {
   }
 
   return (
-    <div className='blog' style={blogStyle}>
+    <div className='blog' style={blogStyle} data-cy='blog'>
       <div className='blogHeader' style={hideWhenVisible}>
-        {blog.title} {blog.author} <button onClick={toggleVisibility}>view</button>
+        {blog.title} {blog.author} <button onClick={toggleVisibility} data-cy='blog-toggle-open'>view</button>
       </div>
       <div className='blogBody' style={showWhenVisible}>
         {blog.title} {blog.author}<button onClick={toggleVisibility}>hide</button>
         <br />
         {blog.url}
         <br />
-        likes {blog.likes} <button onClick={onLikeBlog}>like</button>
+        likes <span data-cy='blog-likes'>{blog.likes}</span> <button onClick={onLikeBlog} data-cy='like-blog'>like</button>
         <br />
         {blog.user.name}
         <br />
-        <button onClick={onDeleteBlog}>remove</button>
+        <button onClick={onDeleteBlog} data-cy='delete-blog'>remove</button>
       </div>
     </div>
   )
