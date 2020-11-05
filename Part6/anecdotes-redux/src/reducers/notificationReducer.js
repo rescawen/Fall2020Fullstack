@@ -2,33 +2,26 @@ const notificationReducer = (state = null, action) => {
     switch (action.type) {
         case 'HIDE_NOTIFICATION':
             return null
-        case 'CREATE_MESSAGE':
-            return action.message
-        case 'VOTE_MESSAGE':
+        case 'NOTIFICATION_MESSAGE':
             return action.message
         default: return state
     }
 }
 
-export const hideNotification = () => {
-    return {
-        type: 'HIDE_NOTIFICATION'
+let hideTimeOut
+export const setNotification = (message, seconds) => {
+    clearTimeout(hideTimeOut)
+    return async dispatch => {
+        await dispatch({
+            type: 'NOTIFICATION_MESSAGE',
+            message: message
+        })
+        hideTimeOut = setTimeout(() =>
+            dispatch({
+                type: 'HIDE_NOTIFICATION',
+            })
+            , seconds * 1000)
     }
 }
-
-export const createMessage = (anecdote) => {
-    return {
-        type: 'CREATE_MESSAGE',
-        message: `${anecdote} has been added`
-    }
-}
-
-export const voteMessage = (anecdote) => {
-    return {
-        type: 'VOTE_MESSAGE',
-        message: `you voted '${anecdote}'`
-    }
-}
-
 
 export default notificationReducer
