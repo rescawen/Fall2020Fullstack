@@ -11,4 +11,5 @@ Redoing the English version of this course in a comprehensive manner. Completed 
 - [Part 4](https://github.com/rescawen/Fall2020Fullstack/tree/master/Part4) 
 - [Part 5](https://github.com/rescawen/Fall2020Fullstack/tree/master/Part5)
 - [Part 6](https://github.com/rescawen/Fall2020Fullstack/tree/master/Part6) 
+- [Part 7](https://github.com/rescawen/Fall2020Fullstack/tree/master/Part7) 
 
