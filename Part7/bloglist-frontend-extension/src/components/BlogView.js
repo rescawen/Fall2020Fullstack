@@ -41,9 +41,6 @@ const BlogView = ({ blog, likeBlog, deleteBlog }) => {
         <br />
         <Button variant="danger" onClick={onDeleteBlog} data-cy='delete-blog'>remove</Button>
       </Jumbotron>
-
-
-
     </div>
   )
 }

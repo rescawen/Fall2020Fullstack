@@ -15,7 +15,6 @@ const User = ({ user }) => {
           blog => <li key={blog.id}>{blog.title}</li>
         )}
       </ul>
-
     </div>
   )
 }

@@ -175,8 +175,6 @@ const App = () => {
     padding: 5
   }
 
-
-
   return (
     <div>
       <h2>blog app</h2>
