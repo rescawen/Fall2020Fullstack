@@ -1,4 +1,5 @@
 import React from 'react'
+import { Jumbotron, Button } from 'react-bootstrap'
 
 const BlogView = ({ blog, likeBlog, deleteBlog }) => {
   if (!blog) {
@@ -28,15 +29,20 @@ const BlogView = ({ blog, likeBlog, deleteBlog }) => {
 
   return (
     <div>
-      <h2>{blog.title} {blog.author}</h2>
-      <br />
-      {blog.url}
-      <br />
-        likes <span data-cy='blog-likes'>{blog.likes}</span> <button onClick={onLikeBlog} data-cy='like-blog'>like</button>
-      <br />
-      {blog.user.name}
-      <br />
-      <button onClick={onDeleteBlog} data-cy='delete-blog'>remove</button>
+      <Jumbotron>
+        <h1>{blog.title} {blog.author}</h1>
+        <p>
+          {blog.url}
+        </p>
+        <br />
+        likes <span data-cy='blog-likes'>{blog.likes}</span> <Button variant="success" onClick={onLikeBlog} data-cy='like-blog'>like</Button>
+        <br />
+        {blog.user.name}
+        <br />
+        <Button variant="danger" onClick={onDeleteBlog} data-cy='delete-blog'>remove</Button>
+      </Jumbotron>
+
+
 
     </div>
   )

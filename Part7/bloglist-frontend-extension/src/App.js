@@ -12,6 +12,7 @@ import Togglable from './components/Togglable'
 import Notification from './components/Notification'
 import { useResource } from './hooks/resources'
 import loginService from './services/login'
+import { Form, Button } from 'react-bootstrap'
 
 const App = () => {
   const [blogs, blogService] = useResource('/api/blogs')
@@ -164,7 +165,7 @@ const App = () => {
               onChange={({ target }) => setPassword(target.value)}
             />
           </div>
-          <button data-cy="login-button" type="submit">login</button>
+          <Button variant="primary" type="submit">login</Button>
         </form>
       </div>
     )
