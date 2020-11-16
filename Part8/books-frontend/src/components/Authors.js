@@ -4,7 +4,7 @@ import { useMutation } from '@apollo/client'
 import { ALL_AUTHORS, EDIT_AUTHOR } from '../queries'
 
 const Authors = (props) => {
-  const [author, setAuthor] = useState('')
+  const [author, setAuthor] = useState(props.authors[0].name)
   const [birthYear, setbirthYear] = useState('')
 
   const [editAuthor] = useMutation(EDIT_AUTHOR, {
@@ -14,6 +14,8 @@ const Authors = (props) => {
   if (!props.show) {
     return null
   }
+
+  const authors = props.authors
 
   const submit = async (event) => {
     event.preventDefault()
@@ -28,8 +30,6 @@ const Authors = (props) => {
     // setAuthor('')
     setbirthYear('')
   }
-
-  const authors = props.authors
 
   return (
     <div>

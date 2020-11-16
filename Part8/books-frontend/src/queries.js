@@ -11,11 +11,32 @@ query {
 }
 `
 
+// export const ALL_AUTHORS = gql`
+// query {
+//   allAuthors {
+//     name
+//     born
+//     id
+//   }
+// }
+// `
+
+// export const ALL_BOOKS = gql`
+// query {
+//   allBooks { 
+//     title 
+//     author
+//     published
+//     id
+//   }
+// }
+// `
+
 export const ALL_BOOKS = gql`
 query {
   allBooks { 
-    title 
-    author
+    title
+    author {name}
     published
     id
   }
@@ -31,7 +52,9 @@ mutation createBook($title: String!, $author: String!, $published: Int!, $genres
     genres: $genres
   ) {
     title,
-    author
+    author {
+      name
+    }
   }
 }
 `
