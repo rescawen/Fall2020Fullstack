@@ -1,4 +1,12 @@
-import { gql  } from '@apollo/client'
+import { gql } from '@apollo/client'
+
+export const LOGIN = gql`
+  mutation login($username: String!, $password: String!) {
+    login(username: $username, password: $password)  {
+      value
+    }
+  }
+`
 
 export const ALL_AUTHORS = gql`
 query {
@@ -10,27 +18,6 @@ query {
   }
 }
 `
-
-// export const ALL_AUTHORS = gql`
-// query {
-//   allAuthors {
-//     name
-//     born
-//     id
-//   }
-// }
-// `
-
-// export const ALL_BOOKS = gql`
-// query {
-//   allBooks { 
-//     title 
-//     author
-//     published
-//     id
-//   }
-// }
-// `
 
 export const ALL_BOOKS = gql`
 query {
