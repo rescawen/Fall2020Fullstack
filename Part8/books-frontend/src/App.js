@@ -4,6 +4,7 @@ import Authors from './components/Authors'
 import Books from './components/Books'
 import NewBook from './components/NewBook'
 import LoginForm from './components/LoginForm'
+import Recommendations from './components/Recommendations'
 import { useQuery, useApolloClient } from '@apollo/client';
 import { ALL_AUTHORS, ALL_BOOKS } from './queries'
 
@@ -17,8 +18,6 @@ const App = () => {
   if (authorQuery.loading || bookQuery.loading) {
     return <div>loading...</div>
   }
-
-  console.log(token)
 
   const logout = () => {
     setToken(null)
@@ -37,16 +36,16 @@ const App = () => {
         </div>
       )
     }
-    
+
     return (
       <div>
         <button onClick={() => setPage('authors')}>authors</button>
         <button onClick={() => setPage('books')}>books</button>
         <button onClick={() => setPage('add')}>add book</button>
+        <button onClick={() => setPage('recommend')}>recommend</button>
         <button onClick={() => logout()}>logout</button>
       </div>
     )
-
   }
 
 
@@ -63,16 +62,19 @@ const App = () => {
         show={page === 'books'}
       />
 
+      <NewBook
+        show={page === 'add'}
+      />
+
+      <Recommendations
+        show={page === 'recommend'}
+      />
+
       <LoginForm
         setToken={setToken}
         setPage={setPage}
         show={page === 'login'}
       />
-
-      <NewBook
-        show={page === 'add'}
-      />
-
     </div>
   )
 }

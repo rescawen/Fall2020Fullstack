@@ -18,6 +18,7 @@ const LoginForm = (props) => {
             const token = result.data.login.value
             props.setToken(token)
             localStorage.setItem('user-token', token)
+            localStorage.setItem('favoriteGenre', result.data.login.favoriteGenre)
         }
     }, [result.data]) // eslint-disable-line
 

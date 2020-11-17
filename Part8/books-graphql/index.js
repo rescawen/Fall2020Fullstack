@@ -28,7 +28,8 @@ const typeDefs = gql`
   }
 
   type Token {
-    value: String!
+    value: String!,
+    favoriteGenre: String!
   }
 
   type Author {
@@ -83,7 +84,7 @@ const resolvers = {
     },
     authorCount: () => Author.collection.countDocuments(),
     bookCount: () => Book.collection.countDocuments(),
-    allBooks: () => Book.find({}).populate('author', { name: 1, born: 1 }),
+    // allBooks: () => Book.find({}).populate('author', { name: 1, born: 1 }),
     allBooks: (root, args) => {
       if (args.genre) {
         return Book.find({ genres: { $in: args.genre } }).populate('author', { name: 1, born: 1 })
@@ -124,7 +125,10 @@ const resolvers = {
         id: user._id,
       }
 
-      return { value: jwt.sign(userForToken, JWT_SECRET) }
+      return {
+        value: jwt.sign(userForToken, JWT_SECRET),
+        favoriteGenre: user.favoriteGenre
+      }
     },
     addBook: async (root, args, context) => {
       const currentUser = context.currentUser
@@ -157,7 +161,7 @@ const resolvers = {
       if (!currentUser) {
         throw new AuthenticationError("not authenticated")
       }
-      
+
       const author = await Author.findOne({ name: args.name })
       author.born = args.setBornTo
       return author.save()
