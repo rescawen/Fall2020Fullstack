@@ -8,7 +8,7 @@ const Book = require('./models/book')
 
 const pubsub = new PubSub()
 
-const MONGODB_URI = 'mongodb+srv://phonebook:fullstackphonebook@cluster0.lzmmj.mongodb.net/books?retryWrites=true&w=majority'
+const MONGODB_URI = ''
 
 const JWT_SECRET = 'NEED_HERE_A_SECRET_KEY'
 
