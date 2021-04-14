@@ -8,13 +8,11 @@ app.get('/hello', (_req, res) => {
 
 app.get('/bmi', (_req, res) => {
 
-  if (!_req.query.height && !_req.query.weight) {
+  if (!_req.query.height || !_req.query.weight) {
     res.json({
       error: "malformatted parameters"
     })
-  }
-
-  if (!isNaN(Number(_req.query.height)) && !isNaN(Number(_req.query.weight))) {
+  } else if (!isNaN(Number(_req.query.height)) && !isNaN(Number(_req.query.weight))) {
     res.json({
       weight: Number(_req.query.weight),
       height: Number(_req.query.height),
@@ -25,8 +23,6 @@ app.get('/bmi', (_req, res) => {
       error: "Provided values were not numbers!"
     })
   }
-
-
 })
 
 const PORT = 3002
