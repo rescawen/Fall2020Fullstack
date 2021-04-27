@@ -1,6 +1,6 @@
 interface InputObject {
     target: number,
-    exerciseHours: Array<Number>
+    exerciseHours: Array<number>
 }
 
 interface ResultObject {
@@ -16,9 +16,9 @@ interface ResultObject {
 const parseArguments = (args: Array<string>): InputObject => {
     if (args.length < 4) throw new Error('Not enough arguments')
 
-    const exerciseHours: Array<Number> = []
+    const exerciseHours: Array<number> = []
 
-    for (var i = 2; i < args.length; i++) {
+    for (let i = 2; i < args.length; i++) {
         if (!isNaN(Number(args[i]))) {
             exerciseHours.push(Number(args[i]))
         } else {
@@ -33,7 +33,7 @@ const parseArguments = (args: Array<string>): InputObject => {
     }
 }
 
-const calculateExercise = (exerciseHours: Array<Number>, target: number): ResultObject => {
+const calculateExercise = (exerciseHours: Array<number>, target: number): ResultObject => {
 
     const periodLength = exerciseHours.length
     const goodLimit = Math.round(periodLength * 0.7)
@@ -66,9 +66,11 @@ try {
     const { target, exerciseHours } = parseArguments(process.argv)
     console.log(calculateExercise(exerciseHours, target))
 } catch (e) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     console.log('Error, something bad happened, message: ', e.message)
 }
 
+export { calculateExercise }
 
 
 

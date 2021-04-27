@@ -1,6 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import express from 'express'
 import { calculateBmi } from './bmiCalculator'
+import { calculateExercise } from './exerciseCalculator'
 const app = express()
+app.use(express.json())
+
 
 app.get('/hello', (_req, res) => {
   res.send('Hello Full Stack!')
@@ -24,6 +29,28 @@ app.get('/bmi', (_req, res) => {
     })
   }
 })
+
+app.route('/exercise-calculator')
+  .get(function (_req, res) {
+    res.send('Exercise calculator!')
+  })
+  .post(function (_req, res) {
+    const daily_exercises = _req.body.daily_exercises
+    const target = _req.body.target
+
+    if (!daily_exercises || !target) {
+      res.json({
+        error: "parameters missing"
+      })
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    } else if (!isNaN(Number(target)) && !daily_exercises.some(isNaN)) {
+      res.json(calculateExercise(daily_exercises, target))
+    } else {
+      res.json({
+        error: "Provided values were not numbers!"
+      })
+    }
+  })
 
 const PORT = 3002
 

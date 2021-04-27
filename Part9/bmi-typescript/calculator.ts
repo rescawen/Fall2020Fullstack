@@ -19,5 +19,6 @@ const calculator = (a: number, b: number, op: Operation): Result => {
 try {
     console.log(calculator(1, 0, 'add'))
 } catch (e) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     console.log('Something went wrong, error message: ', e.message);
 }
